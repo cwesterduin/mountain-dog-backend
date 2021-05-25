@@ -11,10 +11,10 @@ if (PORT == null || PORT == "") {
 
 var mysql = require('mysql');
 var con = mysql.createConnection({
-  host: "rds-mysql-10mintutorial.cx7tmt6mbnem.eu-west-2.rds.amazonaws.com",
+  host: process.env.RDS_HOST,
   user: process.env.RDS_USER,
   password: process.env.RDS_PASS,
-  database: "MountainDogV2"
+  database: process.env.RDS_DB,
 });
 
 app.use(cors());

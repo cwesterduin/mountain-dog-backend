@@ -1,0 +1,17 @@
+version: '3'
+services:
+    api:
+        image: node:12.18.4
+        working_dir: /code
+        volumes:
+            - type: bind
+              source: ./api
+              target: /code
+    db:
+        image: mysql:8
+        environment: 
+        - MYSQL_ROOT_PASSWORD=password
+        volumes:
+        - "./db/migrations:/docker-entrypoint-initdb.d/:ro"
+volumes:
+    dbdata:
