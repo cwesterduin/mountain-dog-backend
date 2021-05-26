@@ -22,9 +22,23 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 
 SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
 
+
+DROP TABLE IF EXISTS `Users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `Users` (
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `Username` varchar(255) DEFAULT NULL,
+  `Password` json DEFAULT NULL,
+  UNIQUE KEY `UserID_UNIQUE` (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 --
 -- Table structure for table `BlogPosts`
 --
+
 
 DROP TABLE IF EXISTS `BlogPosts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

@@ -2,22 +2,73 @@ const express = require('express');
 var async = require('async');
 const app = express();
 const server = require('http').createServer(app)
-const path = require('path');
 const cors = require('cors');
+var multer  = require('multer')
+
 let PORT = process.env.PORT;
 if (PORT == null || PORT == "") {
-  PORT = 5000;
+  PORT = 3000;
 }
 
-var mysql = require('mysql');
-var con = mysql.createConnection({
-  host: process.env.RDS_HOST,
-  user: process.env.RDS_USER,
-  password: process.env.RDS_PASS,
-  database: process.env.RDS_DB,
-});
+const con = require('./dbConfig/init')
 
 app.use(cors());
+
+app.get('/', (req, res) => {
+		res.send({msg: "success!"})
+});
+
+app.post('/Users', (req, res) => {
+    con.query(`INSERT INTO Users (username, password) values ('test','[1,2,3]')`, function (error, results, fields) {
+        res.send({msg: string(results)});
+      });
+});
+
+var upload = multer().single('image')
+const sharp = require('sharp');
+const fs = require('fs')
+
+const compress = (file, quality) => {
+  sharp(file)
+    .resize(1650)
+    .webp({ quality: quality })
+    .toBuffer({ resolveWithObject: true })
+    .then((data) => {
+      if (data.info.size < 40000) {
+        fs.writeFile(__dirname + "/uploads/upload.webp", data.data, (err) => {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          console.log(data.info.size)
+          console.log("success")
+          //file written successfully
+        });
+      }
+      else {
+          console.log(data.info.size)
+          let newquality = quality - 20
+          compress(data.data, newquality)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+app.post('/image', (req, res, next) => {
+    upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+          // A Multer error occurred when uploading.
+        } else if (err) {
+          // An unknown error occurred when uploading.
+        }
+        compress(req.file.buffer, 80)
+        res.send({msg: "success"})
+      })
+      
+    })
+
 
 app.get('/Events', (req, res) => {
 	con.query('SELECT Events.*, Media.Path from Events INNER JOIN Media on Events.EventMediaID = Media.MediaID', function (error, results, fields) {
@@ -38,19 +89,19 @@ app.get('/Events/:id', (req, res) => {
     let return_data = {};
     async.parallel([
        function(parallel_done) {
-           con.query(query1, {}, function(err, results) {
+        con.query(query1, {}, function(err, results) {
                return_data.Event = results;
                parallel_done();
            });
        },
        function(parallel_done) {
-           con.query(query2, {}, function(err, results) {
+        con.query(query2, {}, function(err, results) {
                return_data.Media = results;
                parallel_done();
            });
        },
        function(parallel_done) {
-           con.query(query3, {}, function(err, results) {
+        con.query(query3, {}, function(err, results) {
                return_data.MapFeatures = results;
                parallel_done();
            });
