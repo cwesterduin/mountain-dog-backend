@@ -3,12 +3,12 @@ var async = require('async');
 const app = express();
 const server = require('http').createServer(app)
 const cors = require('cors');
-var multer  = require('multer')
-
 let PORT = process.env.PORT;
 if (PORT == null || PORT == "") {
   PORT = 3000;
 }
+
+const compress = require('./compress')
 
 const con = require('./dbConfig/init')
 
@@ -24,37 +24,8 @@ app.post('/Users', (req, res) => {
       });
 });
 
+var multer  = require('multer')
 var upload = multer().single('image')
-const sharp = require('sharp');
-const fs = require('fs')
-
-const compress = (file, quality) => {
-  sharp(file)
-    .resize(1650)
-    .webp({ quality: quality })
-    .toBuffer({ resolveWithObject: true })
-    .then((data) => {
-      if (data.info.size < 40000) {
-        fs.writeFile(__dirname + "/uploads/upload.webp", data.data, (err) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          console.log(data.info.size)
-          console.log("success")
-          //file written successfully
-        });
-      }
-      else {
-          console.log(data.info.size)
-          let newquality = quality - 20
-          compress(data.data, newquality)
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
 
 app.post('/image', (req, res, next) => {
     upload(req, res, function (err) {
