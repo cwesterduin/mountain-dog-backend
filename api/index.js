@@ -26,6 +26,8 @@ app.post('/Users', (req, res) => {
 
 var multer  = require('multer')
 var upload = multer().single('image')
+var uploadGpx = multer({ dest: 'uploads/' }).single('gpx')
+
 
 app.post('/image', (req, res, next) => {
     upload(req, res, function (err) {
@@ -37,9 +39,39 @@ app.post('/image', (req, res, next) => {
         compress(req.file.buffer, 80)
         res.send({msg: "success"})
       })
-      
     })
 
+    const tj = require("@tmcw/togeojson");
+    const fs = require("fs");
+    const DOMParser = require("xmldom").DOMParser;
+    app.post('/gpx', (req, res, next) => {
+      uploadGpx(req, res, function (err) {
+          if (err instanceof multer.MulterError) {
+            // A Multer error occurred when uploading.
+          } else if (err) {
+            // An unknown error occurred when uploading.
+          }
+          console.log(req.file.path)
+          const gpx = new DOMParser().parseFromString(fs.readFileSync(req.file.path, "utf8"));
+          const converted = tj.gpx(gpx);
+
+          res.send({msg: converted})
+        })
+      })
+
+      
+    
+      app.post('/image', (req, res, next) => {
+        upload(req, res, function (err) {
+            if (err instanceof multer.MulterError) {
+              // A Multer error occurred when uploading.
+            } else if (err) {
+              // An unknown error occurred when uploading.
+            }
+            compress(req.file.buffer, 80)
+            res.send({msg: "success"})
+          })
+        })
 
 app.get('/Events', (req, res) => {
 	con.query('SELECT Events.*, Media.Path from Events INNER JOIN Media on Events.EventMediaID = Media.MediaID', function (error, results, fields) {
