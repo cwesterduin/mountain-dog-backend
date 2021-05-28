@@ -1,31 +1,29 @@
 {
-  "name": "gatsby-starter-hello-world",
-  "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
-  "version": "0.1.0",
-  "license": "0BSD",
+  "name": "gatsby-demo-simple-auth",
+  "description": "Gatsby demo of simplified authentication flow.",
+  "version": "1.0.0",
+  "author": "Jason Lengstorf <jason@lengstorf.com>",
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/data-grid": "*",
+    "@material-ui/icons": "^4.11.2",
+    "gatsby": "next",
+    "gatsby-plugin-material-ui": "^3.0.1",
+    "gatsby-plugin-react-helmet": "next",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.0",
+    "react-dom": "^16.9.0",
+    "react-helmet": "^5.2.1"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "prettier --write 'src/**/*.js'",
     "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
-  },
-  "dependencies": {
-    "gatsby": "^3.4.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "devDependencies": {
-    "prettier": "2.2.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
