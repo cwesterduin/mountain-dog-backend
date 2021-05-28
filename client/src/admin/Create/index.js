@@ -1,10 +1,32 @@
 import React from 'react'
 import {  Menu } from '..'
-
+import { Trip } from '../Forms'
+import { useParams, Redirect } from "@reach/router"
+// then 
 function Create(){
+    const { type } = useParams()
+    let form
+
+    switch(type) {
+        case 'events':
+          form = <div>Hello1</div>
+          break;
+        case 'trips':
+          form = <Trip />
+          break;
+        case 'map-features':
+            form = <div>Hello3</div>
+            break;
+        case 'media':
+            form = <div>Hello4</div>
+            break;
+        default:
+            form = <Redirect to="/app/admin/" />
+      }
     return(
         <Menu>
-            <h2>Create</h2>
+            <h2>Create {type}</h2>
+            {form}
         </Menu>
     )
 }

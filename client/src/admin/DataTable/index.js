@@ -1,17 +1,42 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
+import { useParams } from "@reach/router"
+import { getData } from '../requests'
+import { Link } from 'gatsby'
 
 export default function DataTable() {
-    const rows = [
-        { id: 1, col1: 'Hello', col2: 'World' },
-        { id: 2, col1: 'XGrid', col2: 'is Awesome' },
-        { id: 3, col1: 'Material-UI', col2: 'is Amazing' },
-      ];
-      
-      const columns = [
-        { field: 'col1', headerName: 'Column 1', flex: 1 },
-        { field: 'col2', headerName: 'Column 2', flex: 1 },
-      ];
+    const [rows, setRows] = useState([])
+    const [columns, setColumns] = useState([])
+
+    const { type } = useParams()
+
+    useEffect(() => {
+      async function fetchTableData() {
+        const { results } = await getData(type);
+        console.log(results);
+        setColumns(
+          Object.keys(results[0]).filter(d => d !== 'id').map((d) => ({
+            field: d,
+            headerName: d,
+            width: 200,
+          })).concat({ field: "edit",
+            headerName: "edit",
+            width: 100,
+            renderCell: (params) => (
+              <strong>
+                <Link
+                  to={`./${params.value}`}
+                >
+                  Edit
+                </Link>
+              </strong>
+            ),})
+        );
+        setRows(Object.values(results).map((d, i) => ({ ...d, edit: String(d.id) })));
+      }
+      fetchTableData();
+    }, [type]);
+
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid

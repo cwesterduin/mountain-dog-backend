@@ -72,6 +72,35 @@ app.post('/image', (req, res, next) => {
             res.send({msg: "success"})
           })
         })
+        app.get('/admin/events', (req, res) => {
+          con.query('SELECT * from Events', function (error, results, fields) {
+            res.send({results})
+          });
+        });
+
+        app.get('/admin/trips', (req, res) => {
+          con.query('SELECT * from Trips', function (error, results, fields) {
+            results = results.map(r => ({...r, id: r.TripID}))
+            res.send({results})
+          });
+        });
+        app.get('/admin/trips/:id', (req, res) => {
+          con.query(`SELECT * from Trips WHERE TripID=${req.params.id}`, function (error, results, fields) {
+            res.send(results[0])
+          });
+        });
+
+        app.get('/admin/map-features', (req, res) => {
+          con.query('SELECT * from MapFeatures', function (error, results, fields) {
+            res.send({results})
+          });
+        });
+
+        app.get('/admin/media', (req, res) => {
+          con.query('SELECT * from Media', function (error, results, fields) {
+            res.send({results})
+          });
+        });
 
 app.get('/Events', (req, res) => {
 	con.query('SELECT Events.*, Media.Path from Events INNER JOIN Media on Events.EventMediaID = Media.MediaID', function (error, results, fields) {

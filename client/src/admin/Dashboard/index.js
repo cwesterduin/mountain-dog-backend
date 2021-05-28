@@ -8,10 +8,13 @@ function Dashboard(){
     return (
         <>
         <Menu>
+            
         <Button component={Link} to="./create" color="primary">
             <AddIcon/>Create
         </Button>
+
             <DataTable />
+
         </Menu>
         </>
     )

@@ -1,5 +1,5 @@
 .menu__item {
-    border-left: 3px solid red !important;
+    border-left: 3px solid transparent !important;
 }
 
 .menu__active {

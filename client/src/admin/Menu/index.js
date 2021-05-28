@@ -160,24 +160,24 @@ export default function Menu({ children }) {
             <Divider />
 
 
-            <ListItem button component={Link} to="/app/admin/map-features" className={menu__item} activeClassName={menu__active} key={"Map features"}>
+            <ListItem button component={Link} to="/app/admin/map-features" partiallyActive={true} className={menu__item} activeClassName={menu__active} key={"Map features"}>
               <ListItemIcon><RoomIcon/></ListItemIcon>
               <ListItemText primary={"Map features"} />
             </ListItem>
 
-            <ListItem button component={Link} to="/app/admin/events" className={menu__item} activeClassName={menu__active} key={"Events"}>
+            <ListItem button component={Link} to="/app/admin/events" partiallyActive={true} className={menu__item} activeClassName={menu__active} key={"Events"}>
             <ListItemIcon><EventIcon/></ListItemIcon>
             <ListItemText primary={"Events"} />
           </ListItem>     
 
-            <ListItem button component={Link} to="/app/admin/trips" className={menu__item} activeClassName={menu__active} key={"Trips"}>
+            <ListItem button component={Link} to="/app/admin/trips" partiallyActive={true} className={menu__item} activeClassName={menu__active} key={"Trips"}>
             <ListItemIcon><CardTravelIcon/></ListItemIcon>
             <ListItemText primary={"Trips"} />
             </ListItem>
 
             <Divider />
 
-            <ListItem button component={Link} to="/app/admin/media" className={menu__item} activeClassName={menu__active} key={"Media"}>
+            <ListItem button component={Link} to="/app/admin/media" partiallyActive={true} className={menu__item} activeClassName={menu__active} key={"Media"}>
             <ListItemIcon><PermMediaIcon/></ListItemIcon>
             <ListItemText primary={"Media"} />
             </ListItem>
