@@ -3,4 +3,6 @@ export const apiUrl = 'http://localhost:3000'
 
 export  *  from './post'
 export  *  from './get'
+export  *  from './put'
+
 

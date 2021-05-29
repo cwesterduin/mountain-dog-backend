@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Avatar } from "@material-ui/core";
 import * as formStyles from "../form.module.css";
 import { useParams } from "@reach/router";
-import { getData, createData } from "../../requests";
+import { getData, createData, updateData } from "../../requests";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 function Trip() {
@@ -48,7 +48,7 @@ function Trip() {
   if (id) {
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log("hello")
+        updateData(`trips/${id}`, {...formData, TripMediaID: formData.TripMediaID.MediaID})
     }
 } 
   else {

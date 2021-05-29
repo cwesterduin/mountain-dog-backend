@@ -105,6 +105,11 @@ app.post('/image', (req, res, next) => {
             res.send({msg: results})
           });
         });
+        app.put('/admin/trips/:id', (req, res) => {
+          con.query(`UPDATE Trips SET Name=?, Description=?, TripMediaID=? WHERE TripID=${req.params.id}`, [req.body.Name, req.body.Description, req.body.TripMediaID], function (error, results, fields) {
+            res.send({msg: results})
+          });
+        });
 
         app.get('/admin/map-features', (req, res) => {
           con.query('SELECT * from MapFeatures', function (error, results, fields) {
