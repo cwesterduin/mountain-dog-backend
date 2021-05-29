@@ -18,7 +18,15 @@ function uploadToS3(data, path){
       console.log("Upload Success", data.Location);
     }
   });
-
 };
 
-module.exports = uploadToS3 
+async function srcFromS3(){
+  var bucketParams = {
+    Bucket : 'alfie192345',
+    Prefix: 'images'
+  };// Call S3 to obtain a list of the objects in the bucket
+  const res = await s3.listObjectsV2(bucketParams).promise();
+  return res.Contents
+};
+
+module.exports = { uploadToS3, srcFromS3 }

@@ -1,5 +1,5 @@
 const sharp = require('sharp');
-const uploadToS3 = require('./aws_s3')
+const { uploadToS3 } = require('./aws_s3')
 
 const compress = (file, quality) => {
   sharp(file)

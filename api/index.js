@@ -8,6 +8,9 @@ if (PORT == null || PORT == "") {
   PORT = 3000;
 }
 
+const { srcFromS3 } = require('./aws_s3')
+
+
 const compress = require('./compress')
 
 const con = require('./dbConfig/init')
@@ -104,9 +107,20 @@ app.post('/image', (req, res, next) => {
 
         app.get('/admin/media', (req, res) => {
           con.query('SELECT * from Media', function (error, results, fields) {
+            results = results.map(r => ({...r, id: r.MediaID}))
             res.send({results})
           });
         });
+        app.get('/admin/media/:id', (req, res) => {
+          con.query(`SELECT * from Media WHERE MediaID=${req.params.id}`, function (error, results, fields) {
+            res.send(results[0])
+          });
+        });
+        app.get('/admin/s3', async (req, res) => {
+          let data = await srcFromS3()
+          data = data.filter(d => !d.Key.endsWith(".gpx")).filter(d => !d.Key.endsWith("/")).map(d => ( {...d, Key: d.Key.substring(7)} ))
+          res.send({results: data})
+        })
 
 app.get('/Events', (req, res) => {
 	con.query('SELECT Events.*, Media.Path from Events INNER JOIN Media on Events.EventMediaID = Media.MediaID', function (error, results, fields) {

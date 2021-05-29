@@ -1,6 +1,6 @@
 import React from 'react'
 import {  Menu } from '..'
-import { Trip, EventM } from '../Forms'
+import { Trip, EventM, Media } from '../Forms'
 import { useParams, Redirect } from "@reach/router"
 // then 
 function Create(){
@@ -18,7 +18,7 @@ function Create(){
             form = <div>Hello3</div>
             break;
         case 'media':
-            form = <div>Hello4</div>
+            form = <Media/>
             break;
         default:
             form = <Redirect to="/app/admin/" />

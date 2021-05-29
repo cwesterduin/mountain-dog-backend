@@ -28,6 +28,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 import EventIcon from '@material-ui/icons/Event';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 
 const drawerWidth = 240;
 
@@ -180,6 +181,11 @@ export default function Menu({ children }) {
             <ListItem button component={Link} to="/app/admin/media" partiallyActive={true} className={menu__item} activeClassName={menu__active} key={"Media"}>
             <ListItemIcon><PermMediaIcon/></ListItemIcon>
             <ListItemText primary={"Media"} />
+            </ListItem>
+
+            <ListItem button component={Link} to="/app/admin/upload" className={menu__item} activeClassName={menu__active} key={"Upload Media"}>
+            <ListItemIcon><AddPhotoAlternateIcon/></ListItemIcon>
+            <ListItemText primary={"Upload media"} />
             </ListItem>
 
 
