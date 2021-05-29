@@ -8,7 +8,7 @@ const compress = (file, quality) => {
     .toBuffer({ resolveWithObject: true })
     .then((data) => {
       if (data.info.size < 40000) {
-        uploadToS3(data.data, "a" + String(Math.random()).replace(".",""))
+        uploadToS3(data.data, "a" + String(Math.random()).replace(".","") + ".jpg")
       }
       else {
           console.log(data.info.size)

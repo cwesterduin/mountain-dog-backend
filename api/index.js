@@ -29,9 +29,8 @@ app.post('/Users', (req, res) => {
 });
 
 var multer  = require('multer')
-var upload = multer().single('image')
+var upload = multer().array('image')
 var uploadGpx = multer({ dest: 'uploads/' }).single('gpx')
-
 
 app.post('/image', (req, res, next) => {
     upload(req, res, function (err) {
@@ -40,7 +39,8 @@ app.post('/image', (req, res, next) => {
         } else if (err) {
           // An unknown error occurred when uploading.
         }
-        compress(req.file.buffer, 80)
+        console.log(req.files)
+        req.files.forEach(f => compress(f.buffer, 80))
         res.send({msg: "success"})
       })
     })
@@ -72,7 +72,8 @@ app.post('/image', (req, res, next) => {
             } else if (err) {
               // An unknown error occurred when uploading.
             }
-            compress(req.file.buffer, 80)
+
+            // compress(req.file.buffer, 80)
             res.send({msg: "success"})
           })
         })
