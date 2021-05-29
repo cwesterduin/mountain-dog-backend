@@ -7,7 +7,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 function Trip() {
   const { id } = useParams();
-  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     Name: "",
     Description: "",
@@ -22,7 +21,6 @@ function Trip() {
         Description: data.Description,
         TripMediaID: {MediaID: data.TripMediaID},
       });
-      setLoading(true)
 
     }
     async function fetchImageOptions() {
@@ -45,8 +43,6 @@ function Trip() {
       [name]: value
     });
   }
-
-  if (loading) {
 
   return (
     <form className={formStyles.form} noValidate autoComplete="off">
@@ -72,8 +68,8 @@ function Trip() {
         value={formData.TripMediaID}
         renderOption={(option) => (
             <>
-            <a style={{zIndex:'1000'}} target="_blank" href={`https://alfie192345.s3.eu-west-2.amazonaws.com/images/${option.Path}`}><img src={`https://alfie192345.s3.eu-west-2.amazonaws.com/images/${option.Path}`} height={48} width={48} /></a>
-            <div>{option.Path}</div>
+            <img src={`https://alfie192345.s3.eu-west-2.amazonaws.com/images/${option.Path}`} height={48} width={48} />
+            <div>{option.MediaID} {option.Path}</div>
             </>
         )}
         onChange={(e, newValue) =>
@@ -91,7 +87,6 @@ function Trip() {
       </Button>
     </form> 
   );
-         } else { return <div>loading...</div> }
 }
 
 export default Trip;

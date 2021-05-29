@@ -1,6 +1,6 @@
 import React from 'react'
 import {  Menu } from '..'
-import { Trip } from '../Forms'
+import { Trip, EventM } from '../Forms'
 import { useParams, Redirect } from "@reach/router"
 // then 
 function Create(){
@@ -9,7 +9,7 @@ function Create(){
 
     switch(type) {
         case 'events':
-          form = <div>Hello1</div>
+          form = <EventM/>
           break;
         case 'trips':
           form = <Trip />

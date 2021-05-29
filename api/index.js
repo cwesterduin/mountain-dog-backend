@@ -74,7 +74,13 @@ app.post('/image', (req, res, next) => {
         })
         app.get('/admin/events', (req, res) => {
           con.query('SELECT * from Events', function (error, results, fields) {
+            results = results.map(r => ({...r, id: r.EventID}))
             res.send({results})
+          });
+        });
+        app.get('/admin/events/:id', (req, res) => {
+          con.query(`SELECT * from Events WHERE EventID=${req.params.id}`, function (error, results, fields) {
+            res.send(results[0])
           });
         });
 
