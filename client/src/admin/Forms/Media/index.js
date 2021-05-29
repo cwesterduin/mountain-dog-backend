@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { TextField, Button, Typography, FormControl, InputLabel, Select, MenuItem, Avatar } from "@material-ui/core";
 import * as formStyles from "../form.module.css";
 import { useParams } from "@reach/router";
 import { getData } from "../../requests";
@@ -64,12 +64,13 @@ function Media() {
 
   return (
     <form className={formStyles.form} noValidate autoComplete="off">
-        { formData.Path && <img src={`https://alfie192345.s3.eu-west-2.amazonaws.com/images/${formData.Path.Key}`} height={124} width={124}/> }
+        { formData.Path && <img src={`https://alfie192345.s3.eu-west-2.amazonaws.com/thumbnails/${formData.Path.Key}`} width={350}/> }
         <Autocomplete
         id="path-select"
         value={formData.Path}
         renderOption={(option) => (
             <>
+            <Avatar variant="square" src={`https://alfie192345.s3.eu-west-2.amazonaws.com/thumbnails/${option.Key}`} style={{ height: '100px', width: '100px' }} />
             <div>{option.Key}</div>
             </>
         )}

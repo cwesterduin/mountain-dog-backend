@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography } from "@material-ui/core";
+import { TextField, Button, Typography, Avatar } from "@material-ui/core";
 import * as formStyles from "../form.module.css";
 import { useParams } from "@reach/router";
 import { getData } from "../../requests";
@@ -94,12 +94,12 @@ function EventM() {
         value={formData.EventMediaID}
         renderOption={(option) => (
             <>
-            <img src={`https://alfie192345.s3.eu-west-2.amazonaws.com/images/${option.Path}`} height={48} width={48} />
+            <Avatar variant="square" src={`https://alfie192345.s3.eu-west-2.amazonaws.com/thumbnails/${option.Path}`} style={{ height: '100px', width: '100px' }} />
             <div>{option.MediaID} {option.Path}</div>
             </>
         )}
         onChange={(e, newValue) =>
-            setFormData({ ...formData, TripMediaID: newValue })
+            setFormData({ ...formData, EventMediaID: newValue })
           }
 
         options={imageOptions}
