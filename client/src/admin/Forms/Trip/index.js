@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Avatar } from "@material-ui/core";
 import * as formStyles from "../form.module.css";
-import { useParams } from "@reach/router";
+import { useParams, Redirect } from "@reach/router";
 import { getData, createData, updateData } from "../../requests";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { navigate } from "gatsby"
 
 function Trip() {
   const { id } = useParams();
@@ -49,12 +50,15 @@ function Trip() {
     handleSubmit = (e) => {
         e.preventDefault()
         updateData(`trips/${id}`, {...formData, TripMediaID: formData.TripMediaID.MediaID})
+        navigate("/app/admin/trips")
+
     }
 } 
   else {
     handleSubmit = (e) => {
         e.preventDefault()
         createData("trips", {...formData, TripMediaID: formData.TripMediaID.MediaID})
+        navigate("/app/admin/trips")
     } 
   }
 
