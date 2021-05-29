@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Avatar } from "@material-ui/core";
 import * as formStyles from "../form.module.css";
 import { useParams } from "@reach/router";
-import { getData } from "../../requests";
+import { getData, createData } from "../../requests";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 function Trip() {
@@ -44,8 +44,22 @@ function Trip() {
     });
   }
 
+  let handleSubmit
+  if (id) {
+    handleSubmit = (e) => {
+        e.preventDefault()
+        console.log("hello")
+    }
+} 
+  else {
+    handleSubmit = (e) => {
+        e.preventDefault()
+        createData("trips", {...formData, TripMediaID: formData.TripMediaID.MediaID})
+    } 
+  }
+
   return (
-    <form className={formStyles.form} noValidate autoComplete="off">
+    <form onSubmit={handleSubmit} className={formStyles.form} noValidate autoComplete="off">
       <TextField
         id="standard-basic"
         label="Name"

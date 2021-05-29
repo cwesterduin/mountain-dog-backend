@@ -16,6 +16,7 @@ const compress = require('./compress')
 const con = require('./dbConfig/init')
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
 		res.send({msg: "success!"})
@@ -96,6 +97,12 @@ app.post('/image', (req, res, next) => {
         app.get('/admin/trips/:id', (req, res) => {
           con.query(`SELECT * from Trips WHERE TripID=${req.params.id}`, function (error, results, fields) {
             res.send(results[0])
+          });
+        });
+        app.post('/admin/trips', (req, res) => {
+          con.query(`INSERT INTO Trips (Name, Description, TripMediaID) VALUES (?, ?, ?)`, [req.body.Name, req.body.Description, req.body.TripMediaID], function (error, results, fields) {
+            console.log(results)
+            res.send({msg: results})
           });
         });
 

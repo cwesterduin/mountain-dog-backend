@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { apiUrl } from '..'
 
-export const createEvent = async (marker) => {
+export const createData = async (type, content) => {
     try {
-      const { data } = await axios.post(`${apiUrl}/admin/events`, {
-          x: "x",
-          y: "y",
-          z: "z"
+      console.log(JSON.stringify(content))
+      const { data } = await axios.post(`${apiUrl}/admin/${type}`, {
+        ...content
       });
       return data;
     } catch (err) {
